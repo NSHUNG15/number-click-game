@@ -10,7 +10,6 @@ const NumberClickGame = () => {
   const [gameTime, setGameTime] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
   const [message, setMessage] = useState('');
-  const [score, setScore] = useState(0);
   const [bestTime, setBestTime] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
   
@@ -67,7 +66,6 @@ const NumberClickGame = () => {
     setPoints(generateRandomPoints(numPoints));
     setTimeLeft(0);
     setGameTime(0);
-    setScore(0);
     setMessage('');
     setGameStarted(false);
     
@@ -162,11 +160,7 @@ const NumberClickGame = () => {
       endGame('Click quá nhanh! Phải đợi ít nhất 1 giây.');
       return;
     }
-    
-    // Tính điểm dựa trên thời gian còn lại
-    const pointsEarned = Math.ceil(timeLeft * 10);
-    setScore(prev => prev + pointsEarned);
-    
+
     // Đánh dấu điểm đã click
     setPoints(prev => prev.map(p => 
       p.id === pointId ? { ...p, clicked: true } : p
@@ -223,7 +217,6 @@ const NumberClickGame = () => {
     setPoints([]);
     setTimeLeft(0);
     setGameTime(0);
-    setScore(0);
     setMessage('');
     setGameStarted(false);
     
@@ -304,13 +297,7 @@ const NumberClickGame = () => {
               <div className="text-3xl font-bold text-white">{gameTime.toFixed(1)}s</div>
               <div className="text-sm text-blue-200">⏱️ Thời gian</div>
             </div>
-            
-            {/* Điểm số */}
-            <div className="p-4 rounded-lg bg-green-500/20">
-              <div className="text-3xl font-bold text-white">{score}</div>
-              <div className="text-sm text-green-200">🏆 Điểm số</div>
-            </div>
-            
+
             {/* Số tiếp theo */}
             {gameState === 'playing' && (
               <div className="p-4 rounded-lg bg-yellow-500/20">
@@ -423,10 +410,6 @@ const NumberClickGame = () => {
                 <div className="mb-6 text-lg text-blue-200">{message}</div>
                 
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="p-4 rounded-lg bg-blue-500/20">
-                    <div className="text-2xl font-bold text-green-400">{score}</div>
-                    <div className="text-sm text-blue-200">Điểm số</div>
-                  </div>
                   <div className="p-4 rounded-lg bg-green-500/20">
                     <div className="text-2xl font-bold text-yellow-400">{gameTime.toFixed(1)}s</div>
                     <div className="text-sm text-green-200">Thời gian</div>
